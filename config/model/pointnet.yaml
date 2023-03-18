@@ -1,0 +1,3 @@
+model:
+  _target_: src.models.PointNet
+  classes: 2

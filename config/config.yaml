@@ -1,0 +1,15 @@
+defaults:
+  - _self_
+  - dataset: ModelNet10
+  - training: classification
+  - model: pointnet
+  - wandb: defaults
+
+hydra:
+  output_subdir: null
+  run:
+    dir: logs
+  sweep:
+    dir: logs-multi
+    subdir: ${hydra.job.num}
+

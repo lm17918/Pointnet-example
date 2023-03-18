@@ -1,0 +1,13 @@
+optimizer:
+  _target_: torch.optim.Adam
+  lr: 0.0001
+loss:
+  _target_: src.utils.Pointnetloss
+  alpha: 0.0001
+
+epochs: 5
+batch_size: 32
+seed: 1
+
+
+

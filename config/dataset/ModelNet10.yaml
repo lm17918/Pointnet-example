@@ -1,0 +1,7 @@
+
+data_root: ${hydra:runtime.cwd}/datasets/ModelNet10
+
+_target_: src.datasets.classification
+dataset_name: ModelNet10
+dataset_version: V1.0
+decimate: 0.5

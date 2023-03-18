@@ -1,0 +1,25 @@
+program: main.py
+method: random
+name: mysweep
+metric:
+  goal: maximize
+  name: Weighted validation accuracy
+parameters:
+  dataset.decimate:
+    max: 0.8
+    min: 0.1
+    distribution: uniform
+  training.optimizer.lr:
+    max: 0.001
+    min: 0.00001
+    distribution: uniform
+  training.loss.alpha:
+    min: 0.00001
+    max: 0.001
+    distribution: uniform
+
+command:
+  - ${env}
+  - python3
+  - ${program}
+  - ${args_no_hyphens}

@@ -43,14 +43,11 @@ def validation(model, val_loader, decimate):
     wandb.log({"Validation accuracy": val_acc})
     wandb.log({"Weighted validation accuracy": val_acc * (1 - decimate)})
     return val_acc
-    # # save the model
-    # torch.save(modelstate_dict(), "save.pth")
 
 
 @hydra.main(config_path="config", config_name="config", version_base="1.1")
 def main(cfg: DictConfig) -> None:
     set_seed(cfg.training.seed)
-    cfg.wandb.setup.name = str(1024 * cfg.dataset.decimate)
     wandb.init(**cfg.wandb.setup, config=cfg)
     transform = default_transforms(cfg.dataset.decimate)
     train_ds = PointCloudData(cfg.dataset.data_root, transform)
@@ -68,7 +65,6 @@ def main(cfg: DictConfig) -> None:
     wandb.watch(model, **cfg.wandb.watch)
     print("setup complete")
     for _ in tqdm(range(cfg.training.epochs), desc="Epoch", leave=True):
-        val_acc = validation(model, valid_loader, cfg.dataset.decimate)
         train(model, train_loader, optimizer, pointnetloss)
         val_acc = validation(model, valid_loader, cfg.dataset.decimate)
         if val_acc > 95:
